@@ -19,18 +19,23 @@ if folder_names:
         folder_path = os.path.join(current_directory, folder)
         pdf_files = [os.path.join(folder_path, file) for file in os.listdir(folder_path) if file.endswith(".pdf")]
 
+        # Extract only the file names for display
+        pdf_file_names = [os.path.basename(pdf_file) for pdf_file in pdf_files]
+
         # Create a multiselect widget to choose PDF files for the current folder
-        selected_pdfs.extend(st.multiselect(f"Select PDFs for '{folder}':", pdf_files, format_func=lambda x: x))
+        selected_pdfs.extend(st.multiselect(f"Select PDFs for '{folder}':", pdf_file_names))
 
     if selected_pdfs:
         st.write("Selected PDFs:")
-        for pdf in selected_pdfs:
-            st.write(pdf)
+        for pdf_name in selected_pdfs:
+            st.write(pdf_name)
 
         # Merge the selected PDFs into a single PDF
         merged_pdf = PyPDF2.PdfMerger()
-        for pdf_file in selected_pdfs:
-            merged_pdf.append(pdf_file)
+        for pdf_name in selected_pdfs:
+            # Get the full path of the selected PDF using its name
+            pdf_path = os.path.join(current_directory, folder_names[selected_pdfs.index(pdf_name)], pdf_name)
+            merged_pdf.append(pdf_path)
 
         # Create a download link for the merged PDF
         st.markdown("### Download Merged PDF")
