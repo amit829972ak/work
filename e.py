@@ -34,7 +34,8 @@ if folder_names:
         merged_pdf = PyPDF2.PdfMerger()
         for pdf_name in selected_pdfs:
             # Get the full path of the selected PDF using its name
-            pdf_path = os.path.join(current_directory, folder_names[selected_pdfs.index(pdf_name)], pdf_name)
+            folder_index = selected_pdfs.index(pdf_name)
+            pdf_path = os.path.join(current_directory, folder_names[folder_index], pdf_files[folder_index])
             merged_pdf.append(pdf_path)
 
         # Create a download link for the merged PDF
