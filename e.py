@@ -6,8 +6,8 @@ from io import BytesIO
 # Get the current directory (where this script is located)
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
-# List all folders in the current directory
-folder_names = [folder for folder in os.listdir(current_directory) if os.path.isdir(os.path.join(current_directory, folder))]
+# List all folders in the current directory and sort them alphabetically
+folder_names = sorted([folder for folder in os.listdir(current_directory) if os.path.isdir(os.path.join(current_directory, folder))])
 
 st.title("List of Folders in Current Directory")
 
@@ -20,7 +20,7 @@ if folder_names:
         pdf_files = [os.path.join(folder_path, file) for file in os.listdir(folder_path) if file.endswith(".pdf")]
 
         # Create a multiselect widget to choose PDF files for the current folder
-        selected_pdfs.extend(st.multiselect(f"Select PDFs for '{folder}':", pdf_files))
+        selected_pdfs.extend(st.multiselect(f"Select PDFs for '{folder}':", pdf_files, format_func=lambda x: x))
 
     if selected_pdfs:
         st.write("Selected PDFs:")
