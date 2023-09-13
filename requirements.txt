@@ -1,0 +1,4 @@
+streamlit 
+io
+PyPDF2
+os
