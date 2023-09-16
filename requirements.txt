@@ -1,2 +1,5 @@
 streamlit 
 PyPDF2
+report
+canvas
+reportlab
